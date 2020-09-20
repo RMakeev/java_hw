@@ -5,6 +5,9 @@ public class MyFirstProgram {
     hello("World");
     hello("user");
     hello("Roman");
+    Point p1 = new Point(2, 4);
+    Point p2 = new Point(5, 6);
+
 
     Square s = new Square(5);
     System.out.println("Площадь квадрата со стороной " + s.l + " = " + s.area());
@@ -12,6 +15,13 @@ public class MyFirstProgram {
 
     Rectangle r = new Rectangle(4, 6);
     System.out.println("Площадь прямоугольника со сторонами " + r.a + " и " + r.b + " = " + r.area());
+
+
+    System.out.println("Расстояние между точками p1 " + " и " + " p2 " + " = " + (distance(p1, p2)));
+  }
+
+  public static double distance(Point p1, Point p2) {
+    return Math.sqrt(((p2.x - p1.x) * (p2.x - p1.x)) + ((p2.y - p1.y) * (p2.y - p1.y)));
   }
 
 
