@@ -125,4 +125,20 @@ public class TestBase {
   protected void gotoContactPage() {
     wd.findElement(By.linkText("add new")).click();
   }
+
+  protected void goToHomePage() {
+    wd.findElement(By.linkText("home")).click();
+  }
+
+  protected void confirmSelection() {
+    wd.switchTo().alert().accept();
+  }
+
+  protected void deleteSelectedContact() {
+    wd.findElement(By.xpath("//input[@value='Delete']")).click();
+  }
+
+  protected void selectContact() {
+    wd.findElement(By.name("selected[]")).click();
+  }
 }
