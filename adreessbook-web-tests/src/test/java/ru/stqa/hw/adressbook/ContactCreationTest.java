@@ -28,7 +28,21 @@ public class ContactCreationTest {
 
   @Test
   public void testContactCreation() throws Exception {
-    wd.findElement(By.linkText("add new")).click();
+    gotoContactPage();
+    fillContactForm();
+    submitContactCreation();
+    returnToHomePage();
+  }
+
+  private void returnToHomePage() {
+    wd.findElement(By.linkText("home page")).click();
+  }
+
+  private void submitContactCreation() {
+    wd.findElement(By.xpath("(//input[@name='submit'])[2]")).click();
+  }
+
+  private void fillContactForm() {
     wd.findElement(By.name("firstname")).click();
     wd.findElement(By.name("firstname")).clear();
     wd.findElement(By.name("firstname")).sendKeys("Roman");
@@ -50,8 +64,10 @@ public class ContactCreationTest {
     wd.findElement(By.name("notes")).click();
     wd.findElement(By.name("notes")).clear();
     wd.findElement(By.name("notes")).sendKeys("test");
-    wd.findElement(By.xpath("(//input[@name='submit'])[2]")).click();
-    wd.findElement(By.linkText("home page")).click();
+  }
+
+  private void gotoContactPage() {
+    wd.findElement(By.linkText("add new")).click();
   }
 
   @AfterClass(alwaysRun = true)
