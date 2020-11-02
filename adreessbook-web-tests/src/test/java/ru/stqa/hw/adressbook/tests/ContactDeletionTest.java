@@ -1,5 +1,6 @@
 package ru.stqa.hw.adressbook.tests;
 
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.stqa.hw.adressbook.model.ContactData;
 
@@ -7,6 +8,7 @@ public class ContactDeletionTest extends TestBase {
 
   @Test
   public void testContactDeletion() throws Exception {
+    int before = app.getContactHelper().getContactCount();
     if (!app.getContactHelper().isThereAContact()) {
       app.getContactHelper().createContact(new ContactData(
               "Roman", "Makeev", "Maki",
@@ -18,6 +20,8 @@ public class ContactDeletionTest extends TestBase {
     app.getContactHelper().deleteSelectedContact();
     app.getContactHelper().confirmSelection();
     app.getNavifationHelper().goToHomePage();
+    int after = app.getContactHelper().getContactCount();
+    Assert.assertEquals(after, before - 1);
   }
 
 

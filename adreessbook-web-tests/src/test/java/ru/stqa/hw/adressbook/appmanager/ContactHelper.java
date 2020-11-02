@@ -33,13 +33,8 @@ public class ContactHelper extends HelperBase {
     type(By.name("mobile"), contactData.getMobile());
     type(By.name("email"), contactData.getEmail());
     type(By.name("notes"), contactData.getNotes());
-
-    if (creation) {
-      new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
-    } else {
-      Assert.assertFalse(isElementPresent(By.name("new_group")));
-    }
   }
+
 
   public void confirmSelection() {
     wd.switchTo().alert().accept();
@@ -71,5 +66,9 @@ public class ContactHelper extends HelperBase {
 
   public boolean isThereAContact() {
     return isElementPresent(By.name("selected[]"));
+  }
+
+  public int getContactCount() {
+    return wd.findElements(By.name("selected[]")).size();
   }
 }
