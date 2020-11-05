@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 public class ApplicationManager {
   WebDriver wd;
 
-  private ContactHelper contactHelper;
+  private ru.stqa.hw.adressbook.appmanager.ContactHelper contactHelper;
   private SessionHelper sessionHelper;
   private NavigationHelper navigationHelper;
   private GroupHelper groupHelper;
