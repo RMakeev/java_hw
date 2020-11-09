@@ -4,30 +4,52 @@ import java.util.Objects;
 
 
 public class ContactData {
-  private final String firstname;
-  private final String lastname;
-  private final String mobile;
-  private final String email;
+  private String firstname;
+  private String lastname;
+  private String mobile;
+  private String email;
   private String group;
-  private int id;
+  private int id = Integer.MAX_VALUE;;
 
-  public ContactData(int id, String firstname, String lastname, String mobile, String email, String group) {
+
+
+
+
+  public int getId() {
+    return id;
+  }
+
+  public ContactData withId(int id) {
     this.id = id;
-    this.firstname = firstname;
-    this.lastname = lastname;
-    this.mobile = mobile;
-    this.email = email;
-    this.group = group;
+    return this;
   }
 
-  public ContactData(String firstname, String lastname, String mobile, String email, String group) {
-    this.id = Integer.MAX_VALUE;
+  public ContactData withFirstname(String firstname) {
     this.firstname = firstname;
-    this.lastname = lastname;
-    this.mobile = mobile;
-    this.email = email;
-    this.group = group;
+    return this;
   }
+
+  public ContactData withLastname(String lastname) {
+    this.lastname = lastname;
+    return this;
+  }
+
+  public ContactData withMobile(String mobile) {
+    this.mobile = mobile;
+    return this;
+  }
+
+  public ContactData withEmail(String email) {
+    this.email = email;
+    return this;
+  }
+
+  public ContactData withGroup(String group) {
+    this.group = group;
+    return this;
+  }
+
+
 
   public String getFirstname() {
     return firstname;
@@ -48,6 +70,7 @@ public class ContactData {
   public String getGroup() {
     return group;
   }
+
 
   @Override
   public String toString() {
@@ -70,14 +93,5 @@ public class ContactData {
   @Override
   public int hashCode() {
     return Objects.hash(firstname, lastname);
-  }
-
-
-  public int getId() {
-    return id;
-  }
-
-  public void setId(int id) {
-    this.id = id;
   }
 }

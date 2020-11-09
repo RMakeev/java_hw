@@ -33,6 +33,14 @@ public class ContactHelper extends HelperBase {
     type(By.name("lastname"), contactData.getLastname());
     type(By.name("mobile"), contactData.getMobile());
     type(By.name("email"), contactData.getEmail());
+    try {
+      if (creation) {
+        new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+      } else {
+        Assert.assertFalse(isElementPresent(By.name("new_group")));
+      }
+    } catch (NullPointerException e) {
+    }
   }
 
   public void modify(int index, ContactData contact) {
@@ -92,8 +100,7 @@ public class ContactHelper extends HelperBase {
         String firstname = cell.get(2).getText();
         String lastname = cell.get(1).getText();
         int id = Integer.parseInt(cell.get(0).findElement(By.name("selected[]")).getAttribute("value"));
-        ContactData contact = new ContactData(id, firstname, lastname, null, null, null);
-        contacts.add(contact);
+        contacts.add(new ContactData().withId(id).withFirstname(firstname).withLastname(lastname));
       }
     return contacts;
   }
