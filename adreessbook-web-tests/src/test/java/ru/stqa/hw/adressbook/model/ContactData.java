@@ -109,4 +109,16 @@ public class ContactData {
     this.workPhone = mobilePhone;
     return this;
   }
+
+  public String getHomePhone() {
+    return homePhone;
+  }
+
+  public String getMobilePhone() {
+    return mobilePhone;
+  }
+
+  public String getWorkPhone() {
+    return workPhone;
+  }
 }
