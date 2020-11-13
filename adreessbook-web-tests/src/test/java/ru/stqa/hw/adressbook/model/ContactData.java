@@ -1,5 +1,6 @@
 package ru.stqa.hw.adressbook.model;
 
+import java.io.File;
 import java.util.Objects;
 
 public class ContactData {
@@ -15,6 +16,10 @@ public class ContactData {
   private String allEmails;
   private String address;
   private String group;
+
+
+
+  private File photo;
   private int id = Integer.MAX_VALUE;
 
   public int getId() {
@@ -60,6 +65,14 @@ public class ContactData {
 
   public String getAllEmails() {
     return allEmails;
+  }
+  public File getPhoto() {
+    return photo;
+  }
+
+  public ContactData withPhoto(File photo) {
+    this.photo = photo;
+    return this;
   }
 
 
