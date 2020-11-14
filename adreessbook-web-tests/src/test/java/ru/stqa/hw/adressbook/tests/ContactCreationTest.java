@@ -31,7 +31,7 @@ public class ContactCreationTest extends TestBase {
   public void testBadContactCreation() throws Exception {
     Contacts before = app.contact().all();
     File photo = new File("src/test/resources/IMG.jpg");
-    ContactData contact = new ContactData().withFirstname("Tanya").withLastname("Testova").withMobilePhone("880099911").withEmail("test@test.test").withPhoto(photo);
+    ContactData contact = new ContactData().withFirstname("Roman").withLastname("Makeev").withMobilePhone("880099911").withEmail("test@test.test").withPhoto(photo);
     app.contact().create(contact);
     assertThat(app.contact().count(), equalTo(before.size()));
     Contacts after = app.contact().all();
