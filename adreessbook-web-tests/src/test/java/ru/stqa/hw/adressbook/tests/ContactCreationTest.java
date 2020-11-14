@@ -1,12 +1,16 @@
 package ru.stqa.hw.adressbook.tests;
 
 
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.stqa.hw.adressbook.model.ContactData;
 import ru.stqa.hw.adressbook.model.Contacts;
 
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Iterator;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -14,17 +18,24 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class ContactCreationTest extends TestBase {
 
   @Test
-  public void testContactCreation() throws Exception {
-    Contacts before = app.contact().all();
+  @DataProvider
+  public Iterator<Object[]> validContacts() {
+    List<Object[]> list = new ArrayList<Object[]>();
+    list.add(new Object[] {new ContactData().withFirstname("Roma").withLastname("Testov").withMobilePhone("89-89-78").withEmail("testa@ts.ts")});
+    list.add(new Object[] {new ContactData().withFirstname("Rita").withLastname("Testova").withMobilePhone("555555").withEmail("tes1t@test.ts")});
+    list.add(new Object[] {new ContactData().withFirstname("Rima").withLastname("Kek").withMobilePhone("02").withEmail("Rima@Rima.Rima")});
+    return list.iterator();
+  }
+
+  @Test(dataProvider = "validContacts")
+  public void testContactCreation(ContactData contact) throws Exception {
     File photo = new File("src/test/resources/IMG.jpg");
-    ContactData contact = new ContactData().withFirstname("Roman").withLastname("Makeev").withMobilePhone("880099911").withEmail("test@test.test").withPhoto(photo);
+    Contacts before = app.contact().all();
     app.contact().create(contact);
     assertThat(app.contact().count(), equalTo(before.size() + 1));
     Contacts after = app.contact().all();
     assertThat(after, equalTo(
             before.withAdded(contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
-
-
   }
 
   @Test(enabled = false)
