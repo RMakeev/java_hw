@@ -3,40 +3,82 @@ package ru.stqa.hw.adressbook.model;
 import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.*;
 import java.io.File;
 import java.util.Objects;
 
 
 @XStreamAlias("contact")
+@Entity
+@Table(name = "addressbook")
 public class ContactData {
   @Expose
+  @Column(name = "firstname")
   private String firstname;
+
   @Expose
+  @Column(name = "lastname")
   private String lastname;
+
   @Expose
+  @Column(name = "home")
+  @Type(type = "text")
   private String homePhone;
+
   @Expose
+  @Column(name = "mobile")
+  @Type(type = "text")
   private String mobilePhone;
+
   @Expose
+  @Column(name = "work")
+  @Type(type = "text")
   private String workPhone;
+
   @Expose
+  @Transient
   private String allPhones;
+
   @Expose
+  @Column(name = "email")
+  @Type(type = "text")
   private String email;
+
   @Expose
+  @Column(name = "email2")
+  @Type(type = "text")
   private String email2;
+
   @Expose
+  @Column(name = "email3")
+  @Type(type = "text")
   private String email3;
+
   @Expose
+  @Transient
   private String allEmails;
+
   @Expose
+  @Column(name = "address")
+  @Type(type = "text")
   private String address;
+
   @Expose
+  @Transient
   private String group;
+
+
   @Expose
-  private File photo;
+  @Column(name = "photo")
+  @Type(type = "text")
+  private String photo;
+
+
   @XStreamOmitField
+  @Id
+  @Column(name = "id")
   private int id = Integer.MAX_VALUE;
 
   public int getId() {
@@ -83,12 +125,13 @@ public class ContactData {
   public String getAllEmails() {
     return allEmails;
   }
+
   public File getPhoto() {
-    return photo;
+    return new File(photo);
   }
 
   public ContactData withPhoto(File photo) {
-    this.photo = photo;
+    this.photo = photo.getPath();
     return this;
   }
 
@@ -171,7 +214,11 @@ public class ContactData {
     return "ContactData{" +
             "firstname='" + firstname + '\'' +
             ", lastname='" + lastname + '\'' +
-            ", id='" + id + '\'' +
+            ", homePhone='" + homePhone + '\'' +
+            ", mobilePhone='" + mobilePhone + '\'' +
+            ", email='" + email + '\'' +
+            ", address='" + address + '\'' +
+            ", id=" + id +
             '}';
   }
 
@@ -182,12 +229,16 @@ public class ContactData {
     ContactData that = (ContactData) o;
     return id == that.id &&
             Objects.equals(firstname, that.firstname) &&
-            Objects.equals(lastname, that.lastname);
+            Objects.equals(lastname, that.lastname) &&
+            Objects.equals(homePhone, that.homePhone) &&
+            Objects.equals(mobilePhone, that.mobilePhone) &&
+            Objects.equals(email, that.email) &&
+            Objects.equals(address, that.address);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(firstname, lastname, id);
+    return Objects.hash(firstname, lastname, homePhone, mobilePhone, email, address, id);
   }
 
 }
