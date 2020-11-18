@@ -1,15 +1,27 @@
 package ru.stqa.hw.adressbook.model;
+
+
 import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import org.hibernate.annotations.Type;
+
+
 import javax.persistence.*;
 import java.io.File;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
+
+
 @XStreamAlias("contact")
 @Entity
 @Table(name = "addressbook")
 public class ContactData {
+  @XStreamOmitField
+  @Id
+  @Column(name = "id")
+  private int id = Integer.MAX_VALUE;
   @Expose
   @Column(name = "firstname")
   private String firstname;
@@ -51,16 +63,31 @@ public class ContactData {
   @Type(type = "text")
   private String address;
   @Expose
-  @Transient
-  private String group;
-  @Expose
   @Column(name = "photo")
   @Type(type = "text")
   private String photo;
-  @XStreamOmitField
-  @Id
-  @Column(name = "id")
-  private int id = Integer.MAX_VALUE;
+
+  @ManyToMany(fetch = FetchType.EAGER)
+  @JoinTable(name = "address_in_groups",
+          joinColumns = @JoinColumn(name = "id"),
+          inverseJoinColumns = @JoinColumn(name = "group_id"))
+  private Set<GroupData> groups = new HashSet<GroupData>();
+
+  public Groups getGroups() {
+    return new Groups(groups);
+  }
+
+  public ContactData inGroup(GroupData group) {
+    groups.add(group);
+    return this;
+  }
+
+  public ContactData removeGroups(GroupData group) {
+    groups.remove(group);
+    return this;
+  }
+
+
   public int getId() {
     return id;
   }
@@ -98,9 +125,8 @@ public class ContactData {
     this.allEmails = allEmails;
     return this;
   }
-  public String getGroup() {
-    return group;
-  }
+
+
   public String getAddress() {
     return address;
   }
@@ -151,10 +177,7 @@ public class ContactData {
     this.address = address;
     return this;
   }
-  public ContactData withGroup(String group) {
-    this.group = group;
-    return this;
-  }
+
   public ContactData withPhoto(File photo) {
     this.photo = photo.getPath();
     return this;
