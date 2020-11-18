@@ -30,14 +30,14 @@ public class ContactHelper extends HelperBase {
     type(By.name("email2"), contactData.getEmail2());
     type(By.name("email3"), contactData.getEmail3());
     type(By.name("address"), contactData.getAddress());
-
+//    attach(By.name("photo"), contactData.getPhoto());
     try {
       if (creation) {
         new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
       } else {
         Assert.assertFalse(isElementPresent(By.name("new_group")));
       }
-    } catch (NullPointerException ignored) {
+    } catch (NullPointerException e) {
     }
   }
   public void confirmSelection() {
@@ -116,7 +116,6 @@ public class ContactHelper extends HelperBase {
     wd.navigate().back();
     return new ContactData().withId(contact.getId()).withFirstname(firstname).withLastname(lastname)
             .withHomePhone(home).withMobilePhone(mobile).withWorkPhone(work).withEmail(email)
-            .withEmail2(email2).withEmail3(email3).withAddress(address)/*.withAddress2(address2)*/;
+            .withEmail2(email2).withEmail3(email3).withAddress(address);
   }
-
 }

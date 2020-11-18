@@ -51,6 +51,16 @@ public class GroupData {
   }
 
   @Override
+  public String toString() {
+    return "GroupData{" +
+            "id=" + id +
+            ", name='" + name + '\'' +
+            ", header='" + header + '\'' +
+            ", footer='" + footer + '\'' +
+            '}';
+  }
+
+  @Override
   public int hashCode() {
     return Objects.hash(id, name, header, footer);
   }
@@ -87,16 +97,6 @@ public class GroupData {
     return footer;
   }
 
-
-  @Override
-  public String toString() {
-    return "GroupData{" +
-            "id='" + id + '\'' +
-            ", name='" + name + '\'' +
-            ", header='" + header + '\'' +
-            ", footer='" + footer + '\'' +
-            '}';
-  }
 
 }
 
