@@ -22,6 +22,7 @@ public class ApplicationManager {
   private MailHelper mailHelper;
   private DBHelper db;
   private ResetPasswordHelper rspass;
+  public SoapHelper soapHelper;
 
 
   public ApplicationManager(String browser) {
@@ -62,26 +63,35 @@ public class ApplicationManager {
     return ftp;
   }
 
-  public MailHelper mail(){
-    if (mailHelper == null){
+
+
+  public MailHelper mail() {
+    if (mailHelper == null) {
       mailHelper = new MailHelper(this);
     }
     return mailHelper;
   }
 
 
-  public DBHelper db(){
-    if (db == null){
+  public DBHelper db() {
+    if (db == null) {
       db = new DBHelper(this);
     }
     return db;
   }
 
-  public ResetPasswordHelper rsPass(){
-    if (rspass == null){
+  public ResetPasswordHelper rsPass() {
+    if (rspass == null) {
       rspass = new ResetPasswordHelper(this);
     }
     return rspass;
+  }
+
+  public SoapHelper soap() {
+    if (soapHelper == null) {
+      soapHelper = new SoapHelper(this);
+    }
+    return soapHelper;
   }
 
   public WebDriver getDriver() {
