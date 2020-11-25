@@ -1,0 +1,61 @@
+apply plugin:'java'
+
+repositories {
+    mavenCentral()
+}
+dependencies {
+
+    testCompile group: 'org.testng', name: 'testng', version: '7.1.0'
+    compile 'org.seleniumhq.selenium:selenium-java:3.141.59'
+    compile 'org.hamcrest:java-hamcrest:2.0.0.0'
+    compile 'com.beust:jcommander:1.78'
+    compile 'com.thoughtworks.xstream:xstream:1.4.13'
+    compile 'com.google.code.gson:gson:2.8.6'
+    compile 'ch.qos.logback:logback-classic:1.2.3'
+    compile 'mysql:mysql-connector-java:8.0.21'
+    compile 'org.hibernate:hibernate-core:5.4.22.Final'
+
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+tasks.withType(Test) {
+    systemProperty "file.encoding", "UTF-8"
+}
+
+task testGroups(type: Test) {
+    useTestNG{
+        suites 'src/test/resources/testng-groups.xml'
+    }
+    if (project.hasProperty('browser')) {
+        systemProperty 'browser',"${browser}"
+    }
+    if (project.hasProperty('platform')) {
+        systemProperty 'platform',"${platform}"
+    }
+    if (project.hasProperty('target')) {
+        systemProperty 'target',"${target}"
+    }
+    if (project.hasProperty('verifyUI')) {
+        systemProperty 'verifyUI',"${verifyUI}"
+    }
+}
+task testContacts(type: Test) {
+    useTestNG{
+        suites 'src/test/resources/testng-contacts.xml'
+    }
+
+    if (project.hasProperty('browser')) {
+        systemProperty 'browser',"${browser}"
+    }
+	    if (project.hasProperty('platform')) {
+        systemProperty 'platform',"${platform}"
+    }
+    if (project.hasProperty('target')) {
+        systemProperty 'target',"${target}"
+    }
+    if (project.hasProperty('verifyUI')) {
+        systemProperty 'verifyUI',"${verifyUI}"
+    }
+}
